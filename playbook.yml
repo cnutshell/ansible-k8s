@@ -1,0 +1,25 @@
+# install pip
+
+---
+- hosts: k8s
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{packages}}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+          - epel-release
+          - wget
+          - vim
+          - git
+
+    - name: Config vim
+      copy:
+        src: vimrc
+        dest: /etc/vimrc
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
