@@ -17,9 +17,28 @@
 
     - name: Config vim
       copy:
-        src: vimrc
+        src: files/vimrc
         dest: /etc/vimrc
         owner: root
         group: root
         mode: 0644
+        backup: yes
+
+    - name: Copy golang pkg
+      copy:
+        src: files/go1.11.1.linux-amd64.tar.gz
+        dest: /tmp/go1.11.1.linux-amd64.tar.gz
+
+    - name: Extract golang pkg
+      unarchive:
+        src: /tmp/go1.11.1.linux-amd64.tar.gz
+        dest: /usr/local
+
+    - name: Config PATH
+      copy:
+        src: files/bashrc
+        dest: ~/.bashrc
+        owner: root
+        group: root
+        mode: 0600
         backup: yes
